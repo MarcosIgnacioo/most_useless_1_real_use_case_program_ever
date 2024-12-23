@@ -1,8 +1,9 @@
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_TEXT_SIZE 2256
+#define MAX_TEXT_SIZE 1200000
 #define MAX_STACK_SIZE 256
 
 int str_cmp(char *str_a, const char *str_b) {
@@ -86,14 +87,17 @@ char *read_file(char *file_name) {
     printf("failed to oppen file %s \n", file_name);
     return NULL;
   }
-  char *text_from_file = malloc(MAX_TEXT_SIZE * sizeof(char));
+  char *text_from_file = malloc(INT_MAX);
+  if (!text_from_file) {
+    printf("mallocint this much failed in %s\n", file_name);
+    return NULL;
+  }
   int c;
   int i = 0;
 
   while ((c = fgetc(file)) != EOF) {
     text_from_file[i++] = c;
   }
-
   text_from_file[i] = '\0';
   return text_from_file;
 }
@@ -160,6 +164,6 @@ void start(char *target_substring) {
   char *pivot = "submit:function()";
   char *joined =
       remove_content_from_this_char_to_this_char_after_this_substring(
-          easy_txt, pivot, '{', '}');
+          medium_txt, pivot, '{', '}');
   printf("%s \n", joined);
 }
