@@ -1,3 +1,4 @@
+#include "./array.c"
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,7 +38,8 @@ char *str_substring(char *s, size_t start, size_t end) {
     return sub_str;
 
   memcpy(sub_str, &s[start], end - start);
-  sub_str[end - start + 1] = '\0';
+  // sub_str[end - start + 1] = '\0';
+  sub_str[end - start] = '\0';
 
   return sub_str;
 }
@@ -87,18 +89,19 @@ char *read_file(char *file_name) {
     printf("failed to oppen file %s \n", file_name);
     return NULL;
   }
-  char *text_from_file = malloc(INT_MAX);
+  // char *text_from_file = malloc(INT_MAX);
+  char *text_from_file = array(char *);
   if (!text_from_file) {
     printf("mallocint this much failed in %s\n", file_name);
     return NULL;
   }
   int c;
-  int i = 0;
 
   while ((c = fgetc(file)) != EOF) {
-    text_from_file[i++] = c;
+    // text_from_file[i++] = c;
+    append(text_from_file, c);
   }
-  text_from_file[i] = '\0';
+  append(text_from_file, '\0');
   return text_from_file;
 }
 
