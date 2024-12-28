@@ -59,6 +59,7 @@ char *str_join(char *str_a, char *str_b) {
   // malloooc
   memcpy(joined_str, str_a, a_len);
   memcpy(joined_str + a_len, str_b, b_len);
+  joined_str[total_len] = '\0';
   return joined_str;
 }
 
